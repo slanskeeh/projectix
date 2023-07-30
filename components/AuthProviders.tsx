@@ -9,7 +9,7 @@ type Provider = {
   type: string,
   signinUrl: string,
   callbackUrl: string,
-  signinUrlParams: Record<string, string> | null
+  signinUrlParams?: Record<string, string> | undefined
 }
 
 type Providers = Record<string, Provider> | null
@@ -20,9 +20,6 @@ const AuthProviders = () => {
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders()
-
-      console.log(res)
-
       setProviders(res)
     }
 
@@ -33,7 +30,7 @@ const AuthProviders = () => {
     return (
       <div>
         {Object.values(providers).map((provider: Provider, i) => (
-          <button key={i}>{provider.id}</button>
+          <button key={i} onClick={() => signIn(provider?.id)}>{provider.id}</button>
         ))}
       </div>
     )
